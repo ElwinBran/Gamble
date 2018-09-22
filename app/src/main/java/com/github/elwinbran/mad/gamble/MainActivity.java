@@ -3,8 +3,10 @@ package com.github.elwinbran.mad.gamble;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,19 +21,27 @@ public class MainActivity extends AppCompatActivity {
 
     private Integer streak = 0;
 
-    private List<Integer> rollHistory = new ArrayList<>(50);
+    private final List<Integer> rollHistory = new ArrayList<>(50);
 
-    private Integer highscore = 0;//TODO get from external persistance.
+    private Integer highscore = 0;//TODO get from external persistance.\\
+
+    private RecyclerView.Adapter recyclerViewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        roll();
+        lastRollResult = roll();
         RecyclerView log = findViewById(R.id.recyclerView);
-        log.setAdapter(new DiceRollAdapter(getApplicationContext(), this.rollHistory));
+        this.recyclerViewAdapter = new DiceRollAdapter(getApplicationContext(), this.rollHistory);
+        log.setAdapter(this.recyclerViewAdapter);
+        log.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        TextView streakDisplay = findViewById(R.id.textView);
+        streakDisplay.setText("current streak: " + streak.toString());
         SharedPreferences prefs = getSharedPreferences("UserData", MODE_PRIVATE);
         highscore = prefs.getInt("highscore", 0); // 0 is default
+        TextView highscoreDisplay = findViewById(R.id.textView2);
+        highscoreDisplay.setText("Highscore: " + highscore.toString());
         //lower bet button
         Button button = findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
@@ -115,7 +125,8 @@ public class MainActivity extends AppCompatActivity {
     private void logRoll(Integer rollResult)
     {
         this.rollHistory.add(rollResult);
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        this.recyclerViewAdapter.notifyDataSetChanged();
+        //RecyclerView recyclerView = findViewById(R.id.recyclerView);
     }
 
     private void updateStreakDisplay()
@@ -131,6 +142,8 @@ public class MainActivity extends AppCompatActivity {
             SharedPreferences.Editor editor = getSharedPreferences("UserData", MODE_PRIVATE).edit();
             editor.putInt("highscore", highscore);
             editor.apply();
+            TextView highscoreDisplay = findViewById(R.id.textView2);
+            highscoreDisplay.setText("Highscore: " + highscore.toString());
         }
     }
 

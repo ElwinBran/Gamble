@@ -36,6 +36,7 @@ public class DiceRollAdapter extends RecyclerView.Adapter<DiceRollAdapter.DiceRo
     public void onBindViewHolder(@NonNull DiceRollViewHolder holder, int position) {
         holder.textView.setText(data.get(position).toString());
         Toast.makeText(this.context,"Tayce.T",Toast.LENGTH_SHORT).show();
+        notifyDataSetChanged();
     }
 
     @Override
