@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.DataSetObserver;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +37,6 @@ public class DiceRollAdapter extends RecyclerView.Adapter<DiceRollAdapter.DiceRo
     public void onBindViewHolder(@NonNull DiceRollViewHolder holder, int position) {
         holder.textView.setText(data.get(position).toString());
         Toast.makeText(this.context,"Tayce.T",Toast.LENGTH_SHORT).show();
-        notifyDataSetChanged();
     }
 
     @Override
@@ -51,6 +51,7 @@ public class DiceRollAdapter extends RecyclerView.Adapter<DiceRollAdapter.DiceRo
         {
             super(viewItem);
             textView = new TextView(context);
+            Log.d("none", "DiceRollViewHolder: ");
         }
     }
 }

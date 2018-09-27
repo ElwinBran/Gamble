@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.Button;
@@ -126,7 +127,6 @@ public class MainActivity extends AppCompatActivity {
     {
         this.rollHistory.add(rollResult);
         this.recyclerViewAdapter.notifyDataSetChanged();
-        //RecyclerView recyclerView = findViewById(R.id.recyclerView);
     }
 
     private void updateStreakDisplay()
