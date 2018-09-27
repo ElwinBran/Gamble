@@ -28,15 +28,16 @@ public class DiceRollAdapter extends RecyclerView.Adapter<DiceRollAdapter.DiceRo
     @NonNull
     @Override
     public DiceRollViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(this.context).inflate(R.layout.activity_main,parent,false);
-        DiceRollViewHolder vh = new DiceRollViewHolder(v, context);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.roll_log, parent, false);
+        Log.d("none", "onCreateViewHolder: first");
+        DiceRollViewHolder vh = new DiceRollViewHolder(v);
+        Log.d("none", "onCreateViewHolder: second");
         return vh;
     }
 
     @Override
     public void onBindViewHolder(@NonNull DiceRollViewHolder holder, int position) {
         holder.textView.setText(data.get(position).toString());
-        Toast.makeText(this.context,"Tayce.T",Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -47,11 +48,12 @@ public class DiceRollAdapter extends RecyclerView.Adapter<DiceRollAdapter.DiceRo
     public class DiceRollViewHolder extends RecyclerView.ViewHolder
     {
         public TextView textView;
-        public DiceRollViewHolder(View viewItem, Context context)
+        public DiceRollViewHolder(View viewItem)
         {
             super(viewItem);
-            textView = new TextView(context);
-            Log.d("none", "DiceRollViewHolder: ");
+            Log.d("none", "DiceRollViewHolder: precheck");
+            textView = viewItem.findViewById(R.id.rollTextView);
+            Log.d("none", "DiceRollViewHolder: chekc");
         }
     }
 }
