@@ -1,16 +1,13 @@
 package com.github.elwinbran.mad.gamble;
 
 import android.content.Context;
-import android.database.DataSetObserver;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -37,7 +34,10 @@ public class DiceRollAdapter extends RecyclerView.Adapter<DiceRollAdapter.DiceRo
 
     @Override
     public void onBindViewHolder(@NonNull DiceRollViewHolder holder, int position) {
+        Log.d("none", "onBindViewHolder: first");
         holder.textView.setText(data.get(position).toString());
+        Log.d("none", "onBindViewHolder: second");
+
     }
 
     @Override
@@ -52,7 +52,12 @@ public class DiceRollAdapter extends RecyclerView.Adapter<DiceRollAdapter.DiceRo
         {
             super(viewItem);
             Log.d("none", "DiceRollViewHolder: precheck");
-            textView = viewItem.findViewById(R.id.rollTextView);
+            try {
+                textView = viewItem.findViewById(R.id.textView4);
+            } catch(Throwable trouble)
+            {
+                Log.d("None", "DiceRollViewHolder: " + trouble.getMessage());
+            }
             Log.d("none", "DiceRollViewHolder: chekc");
         }
     }
