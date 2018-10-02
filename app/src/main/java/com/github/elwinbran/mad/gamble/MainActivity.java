@@ -3,12 +3,11 @@ package com.github.elwinbran.mad.gamble;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
-import android.widget.Adapter;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -36,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView log = findViewById(R.id.recyclerView);
         this.recyclerViewAdapter = new DiceRollAdapter(getApplicationContext(), this.rollHistory);
         log.setAdapter(this.recyclerViewAdapter);
+        log.addItemDecoration(new DividerItemDecoration(this, 1));
         log.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         TextView streakDisplay = findViewById(R.id.textView);
         streakDisplay.setText("current streak: " + streak.toString());
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         TextView highscoreDisplay = findViewById(R.id.textView2);
         highscoreDisplay.setText("Highscore: " + highscore.toString());
         //lower bet button
-        Button button = findViewById(R.id.button);
+        final ImageButton button = findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Integer newNumber = roll();
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //higher bet button
-        final Button button2 = findViewById(R.id.button2);
+        final ImageButton button2 = findViewById(R.id.button2);
         button2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Integer newNumber = roll();
